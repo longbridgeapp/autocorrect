@@ -15,9 +15,13 @@ func FormatHTML(body string) (out string, err error) {
 	}
 
 	traverseTextNodes(doc.First().Nodes[0], func(node *html.Node) {
-		text := node.Data
-		body = strings.ReplaceAll(body, text, Format(text))
+		node.Data = Format(node.Data)
 	})
+
+	body, err = doc.Find("body").Html()
+	if err != nil {
+		return body, err
+	}
 
 	return body, nil
 }
