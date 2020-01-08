@@ -1,4 +1,4 @@
-module github.com/huacnlee/go-autospace
+module github.com/huacnlee/go-auto-correct
 
 go 1.13
 

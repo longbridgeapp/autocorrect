@@ -1,4 +1,4 @@
-package autospace
+package autocorrect
 
 import (
 	"strings"

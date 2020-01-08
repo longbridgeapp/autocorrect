@@ -1,3 +1,8 @@
+0.3.0
+--------
+
+- Rename package from `autospace` to `autocorrect`.
+
 0.2.0
 --------
 
