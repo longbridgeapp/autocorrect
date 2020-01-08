@@ -1,3 +1,8 @@
+0.3.1
+--------
+
+- Fix HTML replace when content has escapeable `&amp;`, `&nbsp;` chars.
+
 0.3.0
 --------
 
