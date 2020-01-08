@@ -13,6 +13,8 @@ This is a go version of [auto-correct](https://github.com/huacnlee/auto-correct)
 
 Use `autocorrect.Format` to format plain text.
 
+https://play.golang.org/p/ntVhrGYnxNk
+
 ```go
 package main
 
@@ -34,6 +36,8 @@ func main() {
 ```
 
 Use `autocorrect.FormatHTML` for HTML contents.
+
+https://play.golang.org/p/fTGVlkM-H3W
 
 ```go
 package main
