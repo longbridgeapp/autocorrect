@@ -25,9 +25,15 @@ func readFile(filename string) (out string) {
 	return string(data)
 }
 
+func BenchmarkFormatHTML(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		// about 1.4ms/op
+		FormatHTML(readFile("example.txt"))
+	}
+}
 func TestFormatHTMLWithFixtuires(t *testing.T) {
-	expected := readFile("example.expected.html")
-	out, err := FormatHTML(readFile("example.html"))
+	expected := readFile("example.expected.txt")
+	out, err := FormatHTML(readFile("example.txt"))
 	if err != nil {
 		t.Error(err)
 	}
