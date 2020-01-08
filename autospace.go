@@ -1,7 +1,7 @@
 package autospace
 
 import (
-	regexp "github.com/dlclark/regexp2"
+	"regexp"
 )
 
 type strategory struct {
@@ -12,8 +12,8 @@ type strategory struct {
 }
 
 type option struct {
-	noSpace         bool
-	reverseValidate bool
+	space   bool
+	reverse bool
 }
 
 var strategies []*strategory
@@ -28,28 +28,26 @@ func addStrategory(one, other string, opt option) {
 
 func (s *strategory) format(in string) (out string) {
 	out = in
-	if s.opt.noSpace {
+	if s.opt.space {
+		out = s.addSpace(out)
+	} else {
 		out = s.removeSpace(out)
-		return
 	}
 
-	out = s.addSpace(out)
 	return
 }
 
 func (s *strategory) addSpace(in string) (out string) {
 	out = in
 
-	re := regexp.MustCompile("("+s.one+`)(`+s.other+")", 0)
+	re := regexp.MustCompile("(" + s.one + `)(` + s.other + ")")
 
-	out, _ = re.Replace(out, "$1 $2", -1, -1)
+	out = re.ReplaceAllString(out, "$1 $2")
 
-	if !s.opt.reverseValidate {
-		return
+	if s.opt.reverse {
+		re = regexp.MustCompile("(" + s.other + `)(` + s.one + ")")
+		out = re.ReplaceAllString(out, "$1 $2")
 	}
-
-	re = regexp.MustCompile("("+s.other+`)(`+s.one+")", 0)
-	out, _ = re.Replace(out, "$1 $2", -1, -1)
 
 	return
 }
@@ -57,35 +55,36 @@ func (s *strategory) addSpace(in string) (out string) {
 func (s *strategory) removeSpace(in string) (out string) {
 	out = in
 
-	re := regexp.MustCompile("("+s.one+`)\s+(`+s.other+")", 0)
+	re := regexp.MustCompile("(" + s.one + `)\s+(` + s.other + ")")
 
-	out, _ = re.Replace(out, "$1 $2", -1, -1)
+	out = re.ReplaceAllString(out, "$1 $2")
 
-	if !s.opt.reverseValidate {
-		return
+	if s.opt.reverse {
+		re = regexp.MustCompile("(" + s.other + `)\s+(` + s.one + ")")
+		out = re.ReplaceAllString(out, "$1 $2")
 	}
-
-	re = regexp.MustCompile("("+s.other+`)\s+(`+s.one+")", 0)
-	out, _ = re.Replace(out, "$1 $2", -1, -1)
 
 	return
 }
 
 func init() {
 	// EnglishLetter
-	addStrategory(`(?![年月日号])\p{Han}`, `[a-zA-Z]`, option{reverseValidate: true})
+	addStrategory(`\p{Han}`, `[a-zA-Z]`, option{space: true, reverse: true})
+
 	// Number
-	addStrategory(`(?![年月日号])\p{Han}`, `[0-9]`, option{reverseValidate: true})
+	addStrategory(`\p{Han}`, `[0-9]`, option{space: true, reverse: true})
+
 	// SpecialSymbol
-	addStrategory(`(?![年月日号])\p{Han}`, `[+$@#\/]`, option{reverseValidate: true})
-	addStrategory(`(?![年月日号])\p{Han}`, `[\[\(‘“]`, option{})
-	addStrategory(`[’”\]\)!]`, `(?![年月日号])\p{Han}`, option{})
-	addStrategory(`[”\]\)!]`, `[a-zA-Z0-9]+`, option{})
-	// Date
-	addStrategory(`[\d[年月日]]{2,}`, `(?![年月日号])\p{Han}`, option{reverseValidate: true})
+	addStrategory(`\p{Han}`, `[\|+$@#]`, option{space: true, reverse: true})
+	addStrategory(`\p{Han}`, `[\[\(‘“]`, option{space: true})
+	addStrategory(`[’”\]\)!]`, `\p{Han}`, option{space: true})
+	addStrategory(`[”\]\)!]`, `[a-zA-Z0-9]+`, option{space: true})
+
 	// FullwidthPunctuation
-	addStrategory(`(?![年月日号])[\w\p{Han}]`, `[，。！？：；”’]`, option{noSpace: true})
-	addStrategory(`[‘“]`, `(?![年月日号])[\w\p{Han}]`, option{noSpace: true})
+	addStrategory(`[\w\p{Han}]`, `[，。！？：；」》】”’]`, option{reverse: true})
+	addStrategory(`[‘“【「《]`, `[\w\p{Han}]`, option{reverse: true})
+
+	// Fix full date
 }
 
 // Format auto format string to add spaces between Chinese and English words.
