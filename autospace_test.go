@@ -4,12 +4,16 @@ import (
 	"testing"
 )
 
+func assertEqual(t *testing.T, exptected, actual string) {
+	if exptected != actual {
+		t.Errorf("\nexptected: %s\nactual   : %s", exptected, actual)
+	}
+}
+
 func assertCases(t *testing.T, cases map[string]string) {
 	for source, exptected := range cases {
 		actual := Format(source)
-		if exptected != actual {
-			t.Errorf("\nexptected: %s\nactual   : %s", exptected, actual)
-		}
+		assertEqual(t, exptected, actual)
 	}
 }
 

@@ -1,0 +1,35 @@
+package autospace
+
+import (
+	"fmt"
+	"io/ioutil"
+	"regexp"
+	"testing"
+)
+
+var (
+	htmlSpaceRe = regexp.MustCompile(`>[\s]+<`)
+)
+
+func assertHTMLEqual(t *testing.T, exptected, actual string) {
+	if htmlSpaceRe.ReplaceAllString(exptected, "><") != htmlSpaceRe.ReplaceAllString(actual, "><") {
+		t.Errorf("\nexptected:\n%s\nactual   :\n%s", exptected, actual)
+	}
+}
+
+func readFile(filename string) (out string) {
+	data, err := ioutil.ReadFile(fmt.Sprintf("./_fixtures/%s", filename))
+	if err != nil {
+		panic(err)
+	}
+	return string(data)
+}
+
+func TestFormatHTMLWithFixtuires(t *testing.T) {
+	expected := readFile("example.expected.html")
+	out, err := FormatHTML(readFile("example.html"))
+	if err != nil {
+		t.Error(err)
+	}
+	assertHTMLEqual(t, expected, out)
+}
