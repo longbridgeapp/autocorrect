@@ -4,87 +4,47 @@ import (
 	"regexp"
 )
 
-type strategory struct {
-	one   string
-	other string
+var (
+	// Strategies all rules
+	strategies []*strategery
+	fullDateRe = regexp.MustCompile(`[\s]{0,}\d+[\s]{0,}年[\s]{0,}\d+[\s]{0,}月[\s]{0,}\d+[\s]{0,}[日号][\s]{0,}`)
+	spaceRe    = regexp.MustCompile(`\s+`)
+)
 
-	opt option
-}
-
-type option struct {
-	space   bool
-	reverse bool
-}
-
-var strategies []*strategory
-
-func addStrategory(one, other string, opt option) {
-	strategies = append(strategies, &strategory{
+// RegisterStrategery a new strategery
+func registerStrategery(one, other string, opt option) {
+	strategies = append(strategies, &strategery{
 		one:   one,
 		other: other,
 		opt:   opt,
 	})
 }
 
-func (s *strategory) format(in string) (out string) {
-	out = in
-	if s.opt.space {
-		out = s.addSpace(out)
-	} else {
-		out = s.removeSpace(out)
-	}
-
-	return
-}
-
-func (s *strategory) addSpace(in string) (out string) {
-	out = in
-
-	re := regexp.MustCompile("(" + s.one + `)(` + s.other + ")")
-
-	out = re.ReplaceAllString(out, "$1 $2")
-
-	if s.opt.reverse {
-		re = regexp.MustCompile("(" + s.other + `)(` + s.one + ")")
-		out = re.ReplaceAllString(out, "$1 $2")
-	}
-
-	return
-}
-
-func (s *strategory) removeSpace(in string) (out string) {
-	out = in
-
-	re := regexp.MustCompile("(" + s.one + `)\s+(` + s.other + ")")
-
-	out = re.ReplaceAllString(out, "$1 $2")
-
-	if s.opt.reverse {
-		re = regexp.MustCompile("(" + s.other + `)\s+(` + s.one + ")")
-		out = re.ReplaceAllString(out, "$1 $2")
-	}
-
-	return
-}
-
 func init() {
 	// EnglishLetter
-	addStrategory(`\p{Han}`, `[a-zA-Z]`, option{space: true, reverse: true})
+	registerStrategery(`\p{Han}`, `[a-zA-Z]`, option{space: true, reverse: true})
 
 	// Number
-	addStrategory(`\p{Han}`, `[0-9]`, option{space: true, reverse: true})
+	registerStrategery(`\p{Han}`, `[0-9]`, option{space: true, reverse: true})
 
 	// SpecialSymbol
-	addStrategory(`\p{Han}`, `[\|+$@#]`, option{space: true, reverse: true})
-	addStrategory(`\p{Han}`, `[\[\(‘“]`, option{space: true})
-	addStrategory(`[’”\]\)!]`, `\p{Han}`, option{space: true})
-	addStrategory(`[”\]\)!]`, `[a-zA-Z0-9]+`, option{space: true})
+	registerStrategery(`\p{Han}`, `[\|+$@#]`, option{space: true, reverse: true})
+	registerStrategery(`\p{Han}`, `[\[\(‘“]`, option{space: true})
+	registerStrategery(`[’”\]\)!%]`, `\p{Han}`, option{space: true})
+	registerStrategery(`[”\]\)!]`, `[a-zA-Z0-9]+`, option{space: true})
 
 	// FullwidthPunctuation
-	addStrategory(`[\w\p{Han}]`, `[，。！？：；」》】”’]`, option{reverse: true})
-	addStrategory(`[‘“【「《]`, `[\w\p{Han}]`, option{reverse: true})
+	registerStrategery(`[\w\p{Han}]`, `[，。！？：；」》】”’]`, option{reverse: true})
+	registerStrategery(`[‘“【「《]`, `[\w\p{Han}]`, option{reverse: true})
+}
 
-	// Fix full date
+// removeFullDateSpacing
+// 发布 2013 年 3 月 10 号公布 -> 发布2013年3月10号公布
+func removeFullDateSpacing(in string) (out string) {
+	// Fix fulldate
+	return fullDateRe.ReplaceAllStringFunc(in, func(part string) string {
+		return spaceRe.ReplaceAllString(part, "")
+	})
 }
 
 // Format auto format string to add spaces between Chinese and English words.
@@ -94,6 +54,8 @@ func Format(in string) (out string) {
 	for _, s := range strategies {
 		out = s.format(out)
 	}
+
+	out = removeFullDateSpacing(out)
 
 	return
 }
