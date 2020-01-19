@@ -30,7 +30,7 @@ func main() {
   autocorrect.Format("于3月10日开始")
   // => "于 3 月 10 日开始"
 
-    autocorrect.Format("包装日期为2013年3月10日")
+  autocorrect.Format("包装日期为2013年3月10日")
   // => "包装日期为2013年3月10日"
 }
 ```
