@@ -1,7 +1,12 @@
+0.3.3
+--------
+
+- Fix space around `-`;
+
 0.3.2
 --------
 
-- Fix add space between `*`;
+- Fix add space round `*`;
 
 0.3.1
 --------

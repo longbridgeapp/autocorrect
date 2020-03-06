@@ -6,9 +6,12 @@ import (
 
 var (
 	// Strategies all rules
-	strategies []*strategery
-	fullDateRe = regexp.MustCompile(`[\s]{0,}\d+[\s]{0,}年[\s]{0,}\d+[\s]{0,}月[\s]{0,}\d+[\s]{0,}[日号][\s]{0,}`)
-	spaceRe    = regexp.MustCompile(`\s+`)
+	strategies   []*strategery
+	fullDateRe   = regexp.MustCompile(`[\s]{0,}\d+[\s]{0,}年[\s]{0,}\d+[\s]{0,}月[\s]{0,}\d+[\s]{0,}[日号][\s]{0,}`)
+	spaceRe      = regexp.MustCompile(`\s+`)
+	dashHansRe   = regexp.MustCompile(`([\p{Han}）】」》”’])([\-]+)([\p{Han}（【「《“‘])`)
+	leftQuoteRe  = regexp.MustCompile(`\s([（【「《])`)
+	rightQuoteRe = regexp.MustCompile(`([）】」》])\s`)
 )
 
 // RegisterStrategery a new strategery
@@ -34,8 +37,8 @@ func init() {
 	registerStrategery(`[”\]\)!]`, `[a-zA-Z0-9]+`, option{space: true})
 
 	// FullwidthPunctuation
-	registerStrategery(`[\w\p{Han}]`, `[，。！？：；」》】”’]`, option{reverse: true})
-	registerStrategery(`[‘“【「《]`, `[\w\p{Han}]`, option{reverse: true})
+	registerStrategery(`[\w\p{Han}]`, `[，。！？：；）」》】”’]`, option{reverse: true})
+	registerStrategery(`[‘“【「《（]`, `[\w\p{Han}]`, option{reverse: true})
 }
 
 // removeFullDateSpacing
@@ -47,6 +50,14 @@ func removeFullDateSpacing(in string) (out string) {
 	})
 }
 
+func spaceDashWithHans(in string) (out string) {
+	// 自由-开放
+	out = dashHansRe.ReplaceAllString(in, "$1 $2 $3")
+	out = leftQuoteRe.ReplaceAllString(out, "$1")
+	out = rightQuoteRe.ReplaceAllString(out, "$1")
+	return out
+}
+
 // Format auto format string to add spaces between Chinese and English words.
 func Format(in string) (out string) {
 	out = in
@@ -56,6 +67,7 @@ func Format(in string) (out string) {
 	}
 
 	out = removeFullDateSpacing(out)
+	out = spaceDashWithHans(out)
 
 	return
 }
