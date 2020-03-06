@@ -28,7 +28,7 @@ func init() {
 	registerStrategery(`\p{Han}`, `[0-9]`, option{space: true, reverse: true})
 
 	// SpecialSymbol
-	registerStrategery(`\p{Han}`, `[\|+$@#]`, option{space: true, reverse: true})
+	registerStrategery(`\p{Han}`, `[\|+$@#*]`, option{space: true, reverse: true})
 	registerStrategery(`\p{Han}`, `[\[\(‘“]`, option{space: true})
 	registerStrategery(`[’”\]\)!%]`, `\p{Han}`, option{space: true})
 	registerStrategery(`[”\]\)!]`, `[a-zA-Z0-9]+`, option{space: true})
