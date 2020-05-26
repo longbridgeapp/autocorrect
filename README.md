@@ -1,5 +1,7 @@
 # AutoCorrrect
 
+[![Build Status](https://travis-ci.org/huacnlee/go-auto-correct.svg?branch=master)](https://travis-ci.org/huacnlee/go-auto-correct)
+
 Automatically add spaces between Chinese and English words.
 
 ## Other implements
