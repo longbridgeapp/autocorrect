@@ -1,3 +1,8 @@
+0.4.0
+--------
+
+- Add Full CJK (Chinese, Japanese, Korean) support.
+
 0.3.3
 --------
 
