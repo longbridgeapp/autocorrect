@@ -1,8 +1,8 @@
-# AutoCorrrect
+# AutoCorrrect for Go
 
 [![Build Status](https://travis-ci.org/huacnlee/go-auto-correct.svg?branch=master)](https://travis-ci.org/huacnlee/go-auto-correct)
 
-Automatically add spaces between Chinese and English words.
+Automatically add whitespace between CJK (Chinese, Japanese, Korean) and half-width characters (alphabetical letters, numerical digits and symbols).
 
 ## Other implements
 
@@ -12,7 +12,7 @@ Automatically add spaces between Chinese and English words.
 
 ## Features
 
-- Auto add spacings between Chinese and English words.
+- Auto add spacings between CJK (Chinese, Japanese, Korean) and English words.
 - HTML content support.
 
 ## Usage
@@ -38,6 +38,15 @@ func main() {
 
   autocorrect.Format("包装日期为2013年3月10日")
   // => "包装日期为2013年3月10日"
+
+  autocorrect.Format("生产环境中使用Go")
+  # => "生产环境中使用 Go"
+
+  autocorrect.Format("本番環境でGoを使用する")
+  # => "本番環境で Go を使用する"
+
+  autocorrect.Format("프로덕션환경에서Go사용")
+  # => "프로덕션환경에서 Go 사용"
 }
 ```
 

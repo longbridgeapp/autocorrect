@@ -4,12 +4,16 @@ import (
 	"regexp"
 )
 
+const (
+	cjkRe = `\p{Han}|\p{Hangul}|\p{Hanunoo}|\p{Katakana}|\p{Hiragana}|\p{Bopomofo}`
+)
+
 var (
 	// Strategies all rules
 	strategies   []*strategery
 	fullDateRe   = regexp.MustCompile(`[\s]{0,}\d+[\s]{0,}年[\s]{0,}\d+[\s]{0,}月[\s]{0,}\d+[\s]{0,}[日号][\s]{0,}`)
 	spaceRe      = regexp.MustCompile(`\s+`)
-	dashHansRe   = regexp.MustCompile(`([\p{Han}）】」》”’])([\-]+)([\p{Han}（【「《“‘])`)
+	dashHansRe   = regexp.MustCompile(`([` + cjkRe + `）】」》”’])([\-]+)([` + cjkRe + `（【「《“‘])`)
 	leftQuoteRe  = regexp.MustCompile(`\s([（【「《])`)
 	rightQuoteRe = regexp.MustCompile(`([）】」》])\s`)
 )
@@ -25,20 +29,20 @@ func registerStrategery(one, other string, opt option) {
 
 func init() {
 	// EnglishLetter
-	registerStrategery(`\p{Han}`, `[a-zA-Z]`, option{space: true, reverse: true})
+	registerStrategery(cjkRe, `[a-zA-Z]`, option{space: true, reverse: true})
 
 	// Number
-	registerStrategery(`\p{Han}`, `[0-9]`, option{space: true, reverse: true})
+	registerStrategery(cjkRe, `[0-9]`, option{space: true, reverse: true})
 
 	// SpecialSymbol
-	registerStrategery(`\p{Han}`, `[\|+$@#*]`, option{space: true, reverse: true})
-	registerStrategery(`\p{Han}`, `[\[\(‘“]`, option{space: true})
-	registerStrategery(`[’”\]\)!%]`, `\p{Han}`, option{space: true})
+	registerStrategery(cjkRe, `[\|+$@#*]`, option{space: true, reverse: true})
+	registerStrategery(cjkRe, `[\[\(‘“]`, option{space: true})
+	registerStrategery(`[’”\]\)!%]`, cjkRe, option{space: true})
 	registerStrategery(`[”\]\)!]`, `[a-zA-Z0-9]+`, option{space: true})
 
 	// FullwidthPunctuation
-	registerStrategery(`[\w\p{Han}]`, `[，。！？：；）」》】”’]`, option{reverse: true})
-	registerStrategery(`[‘“【「《（]`, `[\w\p{Han}]`, option{reverse: true})
+	registerStrategery(`[\w`+cjkRe+`]`, `[，。！？：；）」》】”’]`, option{reverse: true})
+	registerStrategery(`[‘“【「《（]`, `[\w`+cjkRe+`]`, option{reverse: true})
 }
 
 // removeFullDateSpacing
