@@ -60,7 +60,7 @@ package main
 import "gthub.com/huacnlee/go-auto-correct"
 
 func main() {
-  autocorrect.Format(htmlBody)
+  autocorrect.FormatHTML(htmlBody)
   // => "<div><p>长桥 LongBridge App 下载</p><p>最新版本 1.0</p></div>"
 }
 ```
