@@ -67,19 +67,29 @@ func main() {
 
 ## Benchmark
 
+Run `go test -bench=.` to benchmark.
+
+```
+pkg: github.com/huacnlee/go-auto-correct
+BenchmarkFormat50-12      	   19671	     60175 ns/op
+BenchmarkFormat100-12     	   10000	    119076 ns/op
+BenchmarkFormat400-12     	    2847	    424984 ns/op
+BenchmarkFormatHTML-12    	    1100	   1097027 ns/op
+```
+
 ### Format
 
 | Total chars | Duration |
 | ----- | ------- |
-| 50  | 0.09 ms |
-| 100  | 0.14 ms |
-| 400  | 0.39 ms |
+| 50  | 0.06 ms |
+| 100  | 0.11 ms |
+| 400  | 0.42 ms |
 
 ### FormatHTML
 
 | Total chars | Duration |
 | ----- | ------- |
-| 2K  | 1.4 ms |
+| 2K  | 1.09 ms |
 
 ## License
 

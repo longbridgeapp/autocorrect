@@ -19,30 +19,26 @@ var (
 )
 
 // RegisterStrategery a new strategery
-func registerStrategery(one, other string, opt option) {
-	strategies = append(strategies, &strategery{
-		one:   one,
-		other: other,
-		opt:   opt,
-	})
+func registerStrategery(one, other string, space, reverse bool) {
+	strategies = append(strategies, newStrategery(one, other, space, reverse))
 }
 
 func init() {
 	// EnglishLetter
-	registerStrategery(cjkRe, `[a-zA-Z]`, option{space: true, reverse: true})
+	registerStrategery(cjkRe, `[a-zA-Z]`, true, true)
 
 	// Number
-	registerStrategery(cjkRe, `[0-9]`, option{space: true, reverse: true})
+	registerStrategery(cjkRe, `[0-9]`, true, true)
 
 	// SpecialSymbol
-	registerStrategery(cjkRe, `[\|+$@#*]`, option{space: true, reverse: true})
-	registerStrategery(cjkRe, `[\[\(‘“]`, option{space: true})
-	registerStrategery(`[’”\]\)!%]`, cjkRe, option{space: true})
-	registerStrategery(`[”\]\)!]`, `[a-zA-Z0-9]+`, option{space: true})
+	registerStrategery(cjkRe, `[\|+$@#*]`, true, true)
+	registerStrategery(cjkRe, `[\[\(‘“]`, true, false)
+	registerStrategery(`[’”\]\)!%]`, cjkRe, true, false)
+	registerStrategery(`[”\]\)!]`, `[a-zA-Z0-9]+`, true, false)
 
 	// FullwidthPunctuation
-	registerStrategery(`[\w`+cjkRe+`]`, `[，。！？：；）」》】”’]`, option{reverse: true})
-	registerStrategery(`[‘“【「《（]`, `[\w`+cjkRe+`]`, option{reverse: true})
+	registerStrategery(`[\w`+cjkRe+`]`, `[，。！？：；）」》】”’]`, false, true)
+	registerStrategery(`[‘“【「《（]`, `[\w`+cjkRe+`]`, false, true)
 }
 
 // removeFullDateSpacing
