@@ -1,3 +1,8 @@
+0.4.1
+--------
+
+- Avoid create regex on format method call for performance up (~40%).
+
 0.4.0
 --------
 
