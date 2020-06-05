@@ -8,20 +8,14 @@ const (
 	cjkRe = `\p{Han}|\p{Hangul}|\p{Hanunoo}|\p{Katakana}|\p{Hiragana}|\p{Bopomofo}`
 )
 
-type Option struct {
-	// true to covert Numbers, Letters to Half-width
-	HalfwidthLetterNumbers bool
-}
-
 var (
 	// Strategies all rules
-	strategies    []*strategery
-	fullDateRe    = regexp.MustCompile(`[\s]{0,}\d+[\s]{0,}年[\s]{0,}\d+[\s]{0,}月[\s]{0,}\d+[\s]{0,}[日号][\s]{0,}`)
-	spaceRe       = regexp.MustCompile(`\s+`)
-	dashHansRe    = regexp.MustCompile(`([` + cjkRe + `）】」》”’])([\-]+)([` + cjkRe + `（【「《“‘])`)
-	leftQuoteRe   = regexp.MustCompile(`\s([（【「《])`)
-	rightQuoteRe  = regexp.MustCompile(`([）】」》])\s`)
-	defaultOption = Option{}
+	strategies   []*strategery
+	fullDateRe   = regexp.MustCompile(`[\s]{0,}\d+[\s]{0,}年[\s]{0,}\d+[\s]{0,}月[\s]{0,}\d+[\s]{0,}[日号][\s]{0,}`)
+	spaceRe      = regexp.MustCompile(`\s+`)
+	dashHansRe   = regexp.MustCompile(`([` + cjkRe + `）】」》”’])([\-]+)([` + cjkRe + `（【「《“‘])`)
+	leftQuoteRe  = regexp.MustCompile(`\s([（【「《])`)
+	rightQuoteRe = regexp.MustCompile(`([）】」》])\s`)
 )
 
 // RegisterStrategery a new strategery
@@ -66,16 +60,9 @@ func spaceDashWithHans(in string) (out string) {
 
 // Format auto format string to add spaces between Chinese and English words.
 func Format(in string) (out string) {
-	return FormatWithOption(in, defaultOption)
-}
-
-// FormatWithOption auto format string to add spaces between Chinese and English words.
-func FormatWithOption(in string, opt Option) (out string) {
 	out = in
 
-	if opt.HalfwidthLetterNumbers {
-		out = halfWidth(out)
-	}
+	out = halfWidth(out)
 
 	for _, s := range strategies {
 		out = s.format(out)

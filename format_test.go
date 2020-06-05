@@ -1,7 +1,6 @@
 package autocorrect
 
 import (
-	"fmt"
 	"strings"
 	"testing"
 )
@@ -142,11 +141,8 @@ func TestFormat_CJK(t *testing.T) {
 	assertCases(t, cases)
 }
 
-func TestFormatWithOption(t *testing.T) {
-	text := `ＰＴＳ売買代金ラ“ンキン”グ１０位（１８：１０現在）`
-
-	out := FormatWithOption(text, Option{HalfwidthLetterNumbers: true})
-	fmt.Println(out)
-	// Example:
-	// PTS 売買代金ラ “ンキン” グ 10 位（18:10 現在）
+func TestFormatWithHalfWidth(t *testing.T) {
+	text := `自动转换全角“字符、数字”：我们将在（１６：３２）出发去ＣＢＤ中心。`
+	out := Format(text)
+	assertEqual(t, "自动转换全角 “字符、数字”：我们将在（16:32）出发去 CBD 中心。", out)
 }

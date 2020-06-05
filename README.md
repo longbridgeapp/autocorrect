@@ -14,7 +14,7 @@ Automatically add whitespace between CJK (Chinese, Japanese, Korean) and half-wi
 
 - Auto add spacings between CJK (Chinese, Japanese, Korean) and English words.
 - HTML content support.
-- FullWidth -> HalfWidth (only for [a-zA-Z0-9:]).
+- FullWidth -> HalfWidth (only for [a-zA-Z0-9], and `：` in time).
 
 ## Usage
 
@@ -48,6 +48,9 @@ func main() {
 
   autocorrect.Format("프로덕션환경에서Go사용")
   # => "프로덕션환경에서 Go 사용"
+
+  autocorrect.Format("自动转换全角字符、数字：我们将在１６：３２分出发去ＣＢＤ中心。")
+  # => "自动转换全角字符、数字：我们将在 16:32 分出发去 CBD 中心。"
 }
 ```
 
@@ -63,23 +66,6 @@ import "gthub.com/huacnlee/go-auto-correct"
 func main() {
   autocorrect.FormatHTML(htmlBody)
   // => "<div><p>长桥 LongBridge App 下载</p><p>最新版本 1.0</p></div>"
-}
-```
-
-
-Use `autocorrect.FormatWithOption`, `autocorrect.FormatHTMLWithOption` for correct with option.
-
-```go
-package main
-
-import "gthub.com/huacnlee/go-auto-correct"
-
-func main() {
-  autocorrect.FormatWithOption("本番環境でＧｏを使用する１.１２", Option{HalfwidthLetterNumbers: true})
-  # => "本番環境で Go を使用する 1.12"
-
-  autocorrect.FormatHTMLWithOption("<p>本番環境でＧｏを使用する１.１２</p>", Option{HalfwidthLetterNumbers: true})
-  # => "<p本番環境で Go を使用する 1.12</p>"
 }
 ```
 
