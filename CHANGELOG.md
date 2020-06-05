@@ -1,3 +1,9 @@
+0.5.0
+--------
+
+- Add `autocorrect.FormatWithOption`, `autocorrect.FormatHTMLWithOption` for correct with option.
+- Option `HalfwidthLetterNumbers` to covert Numbers, Letters to Half-width.
+
 0.4.1
 --------
 
