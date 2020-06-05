@@ -1,11 +1,13 @@
 package autocorrect
 
 import (
+	"fmt"
+	"strings"
 	"testing"
 )
 
 func assertEqual(t *testing.T, exptected, actual string) {
-	if exptected != actual {
+	if !strings.EqualFold(exptected, actual) {
 		t.Errorf("\nexptected: %s\nactual   : %s", exptected, actual)
 	}
 }
@@ -138,4 +140,13 @@ func TestFormat_CJK(t *testing.T) {
 		"전 세계 수백 개의 회사가 프로덕션 환경에서 Rust를 사용하여 빠르고, 크로스 플랫폼 및 낮은 리소스 사용량을 달성했습니다. Firefox, Dropbox 및 Cloudflare와 같이 잘 알려져 있고 널리 사용되는 많은 소프트웨어가 Rust를 사용하고 있습니다.": "전 세계 수백 개의 회사가 프로덕션 환경에서 Rust 를 사용하여 빠르고, 크로스 플랫폼 및 낮은 리소스 사용량을 달성했습니다. Firefox, Dropbox 및 Cloudflare 와 같이 잘 알려져 있고 널리 사용되는 많은 소프트웨어가 Rust 를 사용하고 있습니다.",
 	}
 	assertCases(t, cases)
+}
+
+func TestFormatWithOption(t *testing.T) {
+	text := `ＰＴＳ売買代金ラ“ンキン”グ１０位（１８：１０現在）`
+
+	out := FormatWithOption(text, Option{HalfwidthLetterNumbers: true})
+	fmt.Println(out)
+	// Example:
+	// PTS 売買代金ラ “ンキン” グ 10 位（18:10 現在）
 }

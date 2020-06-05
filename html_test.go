@@ -57,3 +57,16 @@ func TestFormatHTMLWithEscapedHTML(t *testing.T) {
 	}
 	assertHTMLEqual(t, expected, out)
 }
+
+func TestFormatHTMLWithOption(t *testing.T) {
+	html := `<p>ＰＴＳ売買代金ラ“ンキン”グ１０位（１８：１０現在）</p>`
+
+	out, err := FormatHTMLWithOption(html, Option{HalfwidthLetterNumbers: true})
+	if err != nil {
+		t.Error(err)
+	}
+
+	fmt.Println(out)
+	// Example:
+	// <p>PTS 売買代金ラ “ンキン” グ 10 位（18:10 現在）</p>
+}
