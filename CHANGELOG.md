@@ -1,3 +1,8 @@
+0.6.1
+--------
+
+- Fix Halfwidth to correct fullwidth spaces.
+
 0.6.0
 --------
 
