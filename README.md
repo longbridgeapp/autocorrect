@@ -61,7 +61,7 @@ https://play.golang.org/p/fTGVlkM-H3W
 ```go
 package main
 
-import "gthub.com/huacnlee/go-auto-correct"
+import "github.com/huacnlee/go-auto-correct"
 
 func main() {
   autocorrect.FormatHTML(htmlBody)
