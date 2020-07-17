@@ -28,7 +28,7 @@ func readFile(filename string) (out string) {
 func BenchmarkFormatHTML(b *testing.B) {
 	raw := readFile("example.txt")
 	for i := 0; i < b.N; i++ {
-		// about 1.1ms/op
+		// about 1.07ms/op
 		FormatHTML(raw)
 	}
 }
@@ -43,8 +43,8 @@ func TestFormatHTMLWithFixtuires(t *testing.T) {
 }
 
 func TestFormatHTMLWithSameTextInAttribute(t *testing.T) {
-	html := `<p data-value="每股均价9.582港元，增持270.3万股"><script>var value = "三生制药获JP Morgan以";</script>三生制药获JP Morgan以<i>每股均价9.582港元，增持270.3万股</i>增持</p>`
-	expected := `<p data-value="每股均价 9.582 港元，增持 270.3 万股"><script>var value = "三生制药获 JP Morgan 以";</script>三生制药获 JP Morgan 以<i>每股均价 9.582 港元，增持 270.3 万股</i>增持</p>`
+	html := `<p data-value="每股均价9.582港元，增持270.3万股"><script>var value = "三生制药获JP Morgan以";</script><pre>每股均价9.582港元</pre><textarea>文本框test</textarea><style>//增持270.3万股</style>三生制药获JP Morgan以<i>每股均价9.582港元，增持270.3万股</i>增持</p>`
+	expected := `<p data-value="每股均价9.582港元，增持270.3万股"><script>var value = "三生制药获JP Morgan以";</script><pre>每股均价9.582港元</pre><textarea>文本框test</textarea><style>//增持270.3万股</style>三生制药获 JP Morgan 以<i>每股均价 9.582 港元，增持 270.3 万股</i>增持</p>`
 	out, err := FormatHTML(html)
 	if err != nil {
 		t.Error(err)
