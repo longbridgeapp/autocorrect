@@ -42,7 +42,7 @@ func FormatHTML(body string) (out string, err error) {
 				}
 
 				ignoreTag = false
-				break
+				continue
 			}
 
 			formated := Format(string(data))
