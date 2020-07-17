@@ -3,7 +3,7 @@ package autocorrect
 import (
 	"testing"
 
-	"gotest.tools/assert"
+	"github.com/stretchr/testify/assert"
 )
 
 func Test_halfWidth(t *testing.T) {

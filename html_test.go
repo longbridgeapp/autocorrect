@@ -32,6 +32,7 @@ func BenchmarkFormatHTML(b *testing.B) {
 		FormatHTML(raw)
 	}
 }
+
 func TestFormatHTMLWithFixtuires(t *testing.T) {
 	expected := readFile("example.expected.txt")
 	out, err := FormatHTML(readFile("example.txt"))

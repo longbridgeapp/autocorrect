@@ -30,6 +30,7 @@ func traverseTextNodes(node *html.Node, fn func(*html.Node)) {
 	if node == nil {
 		return
 	}
+
 	if node.Type == html.TextNode {
 		fn(node)
 	}
