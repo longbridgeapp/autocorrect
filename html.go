@@ -22,8 +22,6 @@ func FormatHTML(body string) (out string, err error) {
 	defer lex.Restore()
 	out = body
 
-	// tb := html.NewTokenBuffer(l)
-
 	ignoreTag := false
 
 	for {
