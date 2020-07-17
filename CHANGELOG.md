@@ -1,3 +1,9 @@
+0.7.0
+--------
+
+- Use new HTML parser to format HTML for performance up.
+- Avoid format text with script/style/textarea/pre tags.
+
 0.6.1
 --------
 
