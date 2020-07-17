@@ -56,7 +56,7 @@ func main() {
 
 Use `autocorrect.FormatHTML` for HTML contents.
 
-https://play.golang.org/p/fTGVlkM-H3W
+https://play.golang.org/p/pbETBF4OOcj
 
 ```go
 package main
