@@ -28,7 +28,7 @@ func readFile(filename string) (out string) {
 func BenchmarkFormatHTML(b *testing.B) {
 	raw := readFile("example.txt")
 	for i := 0; i < b.N; i++ {
-		// about 1.4ms/op
+		// about 1.1ms/op
 		FormatHTML(raw)
 	}
 }
