@@ -1,45 +1,32 @@
 package autocorrect
 
 import (
+	"io"
 	"strings"
 
-	"github.com/PuerkitoBio/goquery"
-	"golang.org/x/net/html"
+	"github.com/pkg/errors"
+	"github.com/tdewolff/parse/v2/html"
+	// "golang.org/x/net/html"
 )
 
 // FormatHTML format HTML content
 func FormatHTML(body string) (out string, err error) {
-	doc, err := goquery.NewDocumentFromReader(strings.NewReader(body))
-	if err != nil {
-		return body, err
-	}
+	lex := html.NewLexer(strings.NewReader(body))
+	out = body
+	for {
+		tt, data := lex.Next()
+		switch tt {
+		case html.TextToken:
+			raw := string(data)
+			formated := Format(raw)
+			out = strings.Replace(out, raw, formated, -1)
+		case html.ErrorToken:
+			if lex.Err() == io.EOF {
+				return out, nil
+			}
 
-	traverseTextNodes(doc.First().Nodes[0], func(node *html.Node) {
-		node.Data = Format(node.Data)
-	})
-
-	body, err = doc.Find("body").Html()
-	if err != nil {
-		return body, err
-	}
-
-	return body, nil
-}
-
-func traverseTextNodes(node *html.Node, fn func(*html.Node)) {
-	if node == nil {
-		return
-	}
-
-	if node.Type == html.TextNode {
-		fn(node)
-	}
-
-	cur := node.FirstChild
-
-	for cur != nil {
-		next := cur.NextSibling
-		traverseTextNodes(cur, fn)
-		cur = next
+			err = errors.Errorf("Error on line %d, %v", lex.Offset(), lex.Err())
+			return
+		}
 	}
 }
