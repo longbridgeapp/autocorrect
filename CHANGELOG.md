@@ -1,3 +1,8 @@
+0.8.0
+--------
+
+- Add `Unformat` / `UnformatHTML` method for remove spacings.
+
 0.7.0
 --------
 
