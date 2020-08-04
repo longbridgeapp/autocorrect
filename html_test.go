@@ -5,6 +5,8 @@ import (
 	"io/ioutil"
 	"regexp"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 var (
@@ -79,4 +81,11 @@ func TestFormatHTML_HalfWidth(t *testing.T) {
 	}
 
 	assertEqual(t, "<p>自动转换全角 “字符、数字”：我们将在（16:32）出发去 CBD 中心。</p>", out)
+}
+
+func TestUnformatHTML(t *testing.T) {
+	raw := "<p>Hello world this is english.</p><p><strong>2018 至 2019 财年</strong>，印度电力部门总进口额为 7100 亿卢比（约合 672 亿人民币）其中 2100 亿卢比来自中国</p><p>占比 29.6%，这意味着中国是印度电力设备的国外主要供应商。</p>"
+	out, err := UnformatHTML(raw)
+	assert.NoError(t, err)
+	assertHTMLEqual(t, "<p>Hello world this is english.</p><p><strong>2018至2019财年</strong>，印度电力部门总进口额为7100亿卢比（约合672亿人民币）其中2100亿卢比来自中国</p><p>占比29.6%，这意味着中国是印度电力设备的国外主要供应商。</p>", out)
 }

@@ -15,6 +15,7 @@ Automatically add whitespace between CJK (Chinese, Japanese, Korean) and half-wi
 - Auto add spacings between CJK (Chinese, Japanese, Korean) and English words.
 - HTML content support.
 - FullWidth -> HalfWidth (only for [a-zA-Z0-9], and `：` in time).
+- Cleanup spacings.
 
 ## Usage
 
@@ -54,7 +55,20 @@ func main() {
 }
 ```
 
-Use `autocorrect.FormatHTML` for HTML contents.
+Use `autocorrect.Unformat` to cleanup spacings in plain text.
+
+```go
+package main
+
+import "gthub.com/huacnlee/go-auto-correct"
+
+func main() {
+  autocorrect.Unformat("据港交所最新权益披露资料显示，2019 年 12 月 27 日，三生制药获 JP Morgan Chase & Co.每股均价 9.582 港元，增持 270.3 万股，总价约 2590 万港元。")
+  // => "据港交所最新权益披露资料显示，2019年12月27日，三生制药获JP Morgan Chase & Co.每股均价9.582港元，增持270.3万股，总价约2590万港元。"
+}
+```
+
+Use `autocorrect.FormatHTML` / `autocorrect.UnformatHTML` for HTML contents.
 
 https://play.golang.org/p/pbETBF4OOcj
 
@@ -66,6 +80,8 @@ import "github.com/huacnlee/go-auto-correct"
 func main() {
   autocorrect.FormatHTML(htmlBody)
   // => "<div><p>长桥 LongBridge App 下载</p><p>最新版本 1.0</p></div>"
+  autocorrect.UnformatHTML(htmlBody)
+  // => "<div><p>长桥LongBridge App下载</p><p>最新版本1.0</p></div>"
 }
 ```
 
