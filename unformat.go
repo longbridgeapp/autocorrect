@@ -3,7 +3,7 @@ package autocorrect
 import "regexp"
 
 var (
-	removeSpaceRe = regexp.MustCompile(`(\s+)?(` + cjkRe + `)(\s+)?`)
+	removeSpaceRe = regexp.MustCompile(`(` + spaceRe + `+)?(` + cjkRe + `)(` + spaceRe + `+)?`)
 )
 
 // Unformat to remove all spaces

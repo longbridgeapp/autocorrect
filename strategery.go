@@ -17,8 +17,8 @@ func newStrategery(one, other string, space, reverse bool) *strategery {
 	addSpaceStr := "(" + one + `)(` + other + ")"
 	addSpaceReverseStr := "(" + other + `)(` + one + ")"
 
-	removeSpaceStr := `(` + one + `)` + spaceRe.String() + `(` + other + `)`
-	removeSpaceReverseStr := "(" + other + `)` + spaceRe.String() + `(` + one + ")"
+	removeSpaceStr := `(` + one + `)` + spaceRe + `(` + other + `)`
+	removeSpaceReverseStr := "(" + other + `)` + spaceRe + `(` + one + ")"
 
 	return &strategery{
 		addSpaceRe:           regexp.MustCompile(addSpaceStr),

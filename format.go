@@ -5,17 +5,17 @@ import (
 )
 
 const (
-	cjkRe = `\p{Han}|\p{Hangul}|\p{Hanunoo}|\p{Katakana}|\p{Hiragana}|\p{Bopomofo}`
+	cjkRe   = `\p{Han}|\p{Hangul}|\p{Hanunoo}|\p{Katakana}|\p{Hiragana}|\p{Bopomofo}`
+	spaceRe = `[ ]`
 )
 
 var (
 	// Strategies all rules
 	strategies   []*strategery
-	fullDateRe   = regexp.MustCompile(`[\s]{0,}\d+[\s]{0,}年[\s]{0,}\d+[\s]{0,}月[\s]{0,}\d+[\s]{0,}[日号][\s]{0,}`)
-	spaceRe      = regexp.MustCompile(`[ \t]+`)
+	fullDateRe   = regexp.MustCompile(spaceRe + `{0,}\d+` + spaceRe + `{0,}年` + spaceRe + `{0,}\d+` + spaceRe + `{0,}月` + spaceRe + `{0,}\d+` + spaceRe + `{0,}[日号]` + spaceRe + `{0,}`)
 	dashHansRe   = regexp.MustCompile(`([` + cjkRe + `）】」》”’])([\-]+)([` + cjkRe + `（【「《“‘])`)
-	leftQuoteRe  = regexp.MustCompile(`\s([（【「《])`)
-	rightQuoteRe = regexp.MustCompile(`([）】」》])\s`)
+	leftQuoteRe  = regexp.MustCompile(spaceRe + `([（【「《])`)
+	rightQuoteRe = regexp.MustCompile(`([）】」》])` + spaceRe)
 )
 
 // RegisterStrategery a new strategery
@@ -44,6 +44,7 @@ func init() {
 // removeFullDateSpacing
 // 发布 2013 年 3 月 10 号公布 -> 发布2013年3月10号公布
 func removeFullDateSpacing(in string) (out string) {
+	spaceRe := regexp.MustCompile(spaceRe + "+")
 	// Fix fulldate
 	return fullDateRe.ReplaceAllStringFunc(in, func(part string) string {
 		return spaceRe.ReplaceAllString(part, "")
