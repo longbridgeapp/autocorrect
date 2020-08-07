@@ -1,3 +1,8 @@
+0.8.1
+--------
+
+- Fix some break line miss bug.
+
 0.8.0
 --------
 
