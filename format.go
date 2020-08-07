@@ -12,7 +12,7 @@ var (
 	// Strategies all rules
 	strategies   []*strategery
 	fullDateRe   = regexp.MustCompile(`[\s]{0,}\d+[\s]{0,}年[\s]{0,}\d+[\s]{0,}月[\s]{0,}\d+[\s]{0,}[日号][\s]{0,}`)
-	spaceRe      = regexp.MustCompile(`\s+`)
+	spaceRe      = regexp.MustCompile(`[ \t]+`)
 	dashHansRe   = regexp.MustCompile(`([` + cjkRe + `）】」》”’])([\-]+)([` + cjkRe + `（【「《“‘])`)
 	leftQuoteRe  = regexp.MustCompile(`\s([（【「《])`)
 	rightQuoteRe = regexp.MustCompile(`([）】」》])\s`)
