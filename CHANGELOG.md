@@ -1,3 +1,8 @@
+0.9.0
+--------
+
+- Change rule for ignore spacing between `#`, `$` chars.
+
 0.8.2
 --------
 

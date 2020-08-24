@@ -31,7 +31,8 @@ func init() {
 	registerStrategery(cjkRe, `[0-9]`, true, true)
 
 	// SpecialSymbol
-	registerStrategery(cjkRe, `[\|+$@#*]`, true, true)
+	registerStrategery(cjkRe, `[\|+*]`, true, true)
+	registerStrategery(cjkRe, `[@]`, true, false)
 	registerStrategery(cjkRe, `[\[\(‘“]`, true, false)
 	registerStrategery(`[’”\]\)!%]`, cjkRe, true, false)
 	registerStrategery(`[”\]\)!]`, `[a-zA-Z0-9]+`, true, false)
