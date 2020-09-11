@@ -26,7 +26,7 @@ https://play.golang.org/p/ntVhrGYnxNk
 ```go
 package main
 
-import "gthub.com/huacnlee/go-auto-correct"
+import "github.com/huacnlee/go-auto-correct"
 
 func main() {
   autocorrect.Format("长桥LongBridge App下载")
@@ -60,7 +60,7 @@ Use `autocorrect.Unformat` to cleanup spacings in plain text.
 ```go
 package main
 
-import "gthub.com/huacnlee/go-auto-correct"
+import "github.com/huacnlee/go-auto-correct"
 
 func main() {
   autocorrect.Unformat("据港交所最新权益披露资料显示，2019 年 12 月 27 日，三生制药获 JP Morgan Chase & Co.每股均价 9.582 港元，增持 270.3 万股，总价约 2590 万港元。")
