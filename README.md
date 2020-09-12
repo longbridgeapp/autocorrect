@@ -19,6 +19,10 @@ Automatically add whitespace between CJK (Chinese, Japanese, Korean) and half-wi
 
 ## Usage
 
+```
+go get gthub.com/huacnlee/go-auto-correct
+```
+
 Use `autocorrect.Format` to format plain text.
 
 https://play.golang.org/p/ntVhrGYnxNk
