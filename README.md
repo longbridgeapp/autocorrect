@@ -14,7 +14,8 @@ Automatically add whitespace between CJK (Chinese, Japanese, Korean) and half-wi
 
 - Auto add spacings between CJK (Chinese, Japanese, Korean) and English words.
 - HTML content support.
-- FullWidth -> HalfWidth (only for [a-zA-Z0-9], and `：` in time).
+- Fullwidth -> Haftwidth (only for [a-zA-Z0-9], and `：` in time).
+- Correct punctuations into Fullwidth near the CJK.
 - Cleanup spacings.
 
 ## Usage
@@ -54,8 +55,8 @@ func main() {
   autocorrect.Format("프로덕션환경에서Go사용")
   # => "프로덕션환경에서 Go 사용"
 
-  autocorrect.Format("自动转换全角字符、数字：我们将在１６：３２分出发去ＣＢＤ中心。")
-  # => "自动转换全角字符、数字：我们将在 16:32 分出发去 CBD 中心。"
+  autocorrect.Format("需要符号?自动转换全角字符、数字:我们将在１６：３２分出发去ＣＢＤ中心.")
+  # => "需要符号？自动转换全角字符、数字：我们将在 16:32 分出发去 CBD 中心。"
 }
 ```
 
@@ -98,7 +99,7 @@ pkg: github.com/huacnlee/go-auto-correct
 BenchmarkFormat50-12      	   19671	     60175 ns/op
 BenchmarkFormat100-12     	   10000	    119076 ns/op
 BenchmarkFormat400-12     	    2847	    424984 ns/op
-Benchmark_halfWidth-12    	  289411	      4150 ns/op
+Benchmark_haftwidth-12    	  289411	      4150 ns/op
 BenchmarkFormatHTML-12    	    1100	   1097027 ns/op
 ```
 
