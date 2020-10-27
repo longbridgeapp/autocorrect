@@ -5,15 +5,16 @@ import (
 )
 
 const (
-	cjkRe   = `\p{Han}|\p{Hangul}|\p{Hanunoo}|\p{Katakana}|\p{Hiragana}|\p{Bopomofo}`
+	cjk     = `\p{Han}|\p{Hangul}|\p{Hanunoo}|\p{Katakana}|\p{Hiragana}|\p{Bopomofo}`
 	spaceRe = `[ ]`
 )
 
 var (
 	// Strategies all rules
 	strategies   []*strategery
+	cjkRe        = regexp.MustCompile("[" + cjk + "]")
 	fullDateRe   = regexp.MustCompile(spaceRe + `{0,}\d+` + spaceRe + `{0,}年` + spaceRe + `{0,}\d+` + spaceRe + `{0,}月` + spaceRe + `{0,}\d+` + spaceRe + `{0,}[日号]` + spaceRe + `{0,}`)
-	dashHansRe   = regexp.MustCompile(`([` + cjkRe + `）】」》”’])([\-]+)([` + cjkRe + `（【「《“‘])`)
+	dashHansRe   = regexp.MustCompile(`([` + cjk + `）】」》”’])([\-]+)([` + cjk + `（【「《“‘])`)
 	leftQuoteRe  = regexp.MustCompile(spaceRe + `([（【「《])`)
 	rightQuoteRe = regexp.MustCompile(`([）】」》])` + spaceRe)
 )
@@ -25,21 +26,21 @@ func registerStrategery(one, other string, space, reverse bool) {
 
 func init() {
 	// EnglishLetter
-	registerStrategery(cjkRe, `[a-zA-Z]`, true, true)
+	registerStrategery(cjk, `[a-zA-Z]`, true, true)
 
 	// Number
-	registerStrategery(cjkRe, `[0-9]`, true, true)
+	registerStrategery(cjk, `[0-9]`, true, true)
 
 	// SpecialSymbol
-	registerStrategery(cjkRe, `[\|+*]`, true, true)
-	registerStrategery(cjkRe, `[@]`, true, false)
-	registerStrategery(cjkRe, `[\[\(‘“]`, true, false)
-	registerStrategery(`[’”\]\)!%]`, cjkRe, true, false)
+	registerStrategery(cjk, `[\|+*]`, true, true)
+	registerStrategery(cjk, `[@]`, true, false)
+	registerStrategery(cjk, `[\[\(‘“]`, true, false)
+	registerStrategery(`[’”\]\)!%]`, cjk, true, false)
 	registerStrategery(`[”\]\)!]`, `[a-zA-Z0-9]+`, true, false)
 
 	// FullwidthPunctuation
-	registerStrategery(`[\w`+cjkRe+`]`, `[，。！？：；）」》】”’]`, false, true)
-	registerStrategery(`[‘“【「《（]`, `[\w`+cjkRe+`]`, false, true)
+	registerStrategery(`[\w`+cjk+`]`, `[，。！？：；）」》】”’]`, false, true)
+	registerStrategery(`[‘“【「《（]`, `[\w`+cjk+`]`, false, true)
 }
 
 // removeFullDateSpacing
@@ -64,7 +65,8 @@ func spaceDashWithHans(in string) (out string) {
 func Format(in string) (out string) {
 	out = in
 
-	out = halfWidth(out)
+	out = haftwidth(out)
+	out = fullwidth(out)
 
 	for _, s := range strategies {
 		out = s.format(out)

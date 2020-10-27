@@ -14,7 +14,7 @@ Automatically add whitespace between CJK (Chinese, Japanese, Korean) and half-wi
 
 - Auto add spacings between CJK (Chinese, Japanese, Korean) and English words.
 - HTML content support.
-- FullWidth -> HalfWidth (only for [a-zA-Z0-9], and `：` in time).
+- FullWidth -> haftwidth (only for [a-zA-Z0-9], and `：` in time).
 - Cleanup spacings.
 
 ## Usage
@@ -94,7 +94,7 @@ pkg: github.com/huacnlee/go-auto-correct
 BenchmarkFormat50-12      	   19671	     60175 ns/op
 BenchmarkFormat100-12     	   10000	    119076 ns/op
 BenchmarkFormat400-12     	    2847	    424984 ns/op
-Benchmark_halfWidth-12    	  289411	      4150 ns/op
+Benchmark_haftwidth-12    	  289411	      4150 ns/op
 BenchmarkFormatHTML-12    	    1100	   1097027 ns/op
 ```
 

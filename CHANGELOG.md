@@ -22,12 +22,12 @@
 0.6.1
 --------
 
-- Fix Halfwidth to correct fullwidth spaces.
+- Fix haftwidth to correct fullwidth spaces.
 
 0.6.0
 --------
 
-- Auto correct FullWidth -> HalfWidth for Letters, Numbers, and Colon in time.
+- Auto correct FullWidth -> haftwidth for Letters, Numbers, and Colon in time.
 
 0.4.1
 --------
