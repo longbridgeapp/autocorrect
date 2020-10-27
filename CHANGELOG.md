@@ -1,3 +1,8 @@
+0.10.0
+--------
+
+- Auto correct punctuation into fullwidth.
+
 0.9.0
 --------
 
