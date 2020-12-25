@@ -18,7 +18,7 @@ var (
 	}
 
 	spcialPunctuations = `[.:]`
-	normalPunctuations = `[,;\!\?~]`
+	normalPunctuations = `[,\!\?~]`
 
 	punctuationWithLeftCJKRe        = regexp.MustCompile(normalPunctuations + `[` + cjk + `]+`)
 	punctuationWithRightCJKRe       = regexp.MustCompile(`[` + cjk + `]+` + normalPunctuations)
