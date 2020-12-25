@@ -1,3 +1,7 @@
+0.11.0
+
+- Fix fullwidth to remove `;` for fix invalid convert with HTML Entity case.
+
 0.10.0
 --------
 
@@ -73,3 +77,4 @@
 --------
 
 - First release.
+
