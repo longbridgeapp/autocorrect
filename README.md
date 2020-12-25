@@ -1,6 +1,6 @@
 # AutoCorrrect for Go
 
-[![Build Status](https://travis-ci.org/huacnlee/go-auto-correct.svg?branch=master)](https://travis-ci.org/huacnlee/go-auto-correct)
+[![Go](https://github.com/huacnlee/go-auto-correct/workflows/Go/badge.svg)](https://github.com/huacnlee/go-auto-correct/actions?query=workflow%3AGo)
 
 Automatically add whitespace between CJK (Chinese, Japanese, Korean) and half-width characters (alphabetical letters, numerical digits and symbols).
 
@@ -106,16 +106,16 @@ BenchmarkFormatHTML-12    	    1100	   1097027 ns/op
 ### Format
 
 | Total chars | Duration |
-| ----- | ------- |
-| 50  | 0.06 ms |
-| 100  | 0.11 ms |
-| 400  | 0.42 ms |
+| ----------- | -------- |
+| 50          | 0.06 ms  |
+| 100         | 0.11 ms  |
+| 400         | 0.42 ms  |
 
 ### FormatHTML
 
 | Total chars | Duration |
-| ----- | ------- |
-| 2K  | 1.09 ms |
+| ----------- | -------- |
+| 2K          | 1.09 ms  |
 
 ## License
 
