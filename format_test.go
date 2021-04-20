@@ -153,7 +153,7 @@ func TestFormat_CJK(t *testing.T) {
 	assertCases(t, cases)
 }
 
-func TestFormatWithhaftwidth(t *testing.T) {
+func TestFormatWithhalfwidth(t *testing.T) {
 	text := `自动转换全角“字符、数字”：我们将在（１６：３２）出发去ＣＢＤ中心。`
 	out := Format(text)
 	assertEqual(t, "自动转换全角 “字符、数字”：我们将在（16:32）出发去 CBD 中心。", out)

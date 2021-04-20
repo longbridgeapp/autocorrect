@@ -65,7 +65,7 @@ func spaceDashWithHans(in string) (out string) {
 func Format(in string) (out string) {
 	out = in
 
-	out = haftwidth(out)
+	out = halfwidth(out)
 	out = fullwidth(out)
 
 	for _, s := range strategies {

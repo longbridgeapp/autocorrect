@@ -13,7 +13,7 @@ var (
 	halfTimeRe = regexp.MustCompile(`(\d)(：)(\d)`)
 )
 
-func haftwidth(text string) string {
+func halfwidth(text string) string {
 	runes := []rune{}
 	for _, char := range text {
 		newChar := charWidthMap[char]

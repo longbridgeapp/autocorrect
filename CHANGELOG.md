@@ -1,4 +1,5 @@
 0.11.0
+------
 
 - Fix fullwidth to remove `;` for fix invalid convert with HTML Entity case.
 
@@ -31,12 +32,12 @@
 0.6.1
 --------
 
-- Fix haftwidth to correct fullwidth spaces.
+- Fix halfwidth to correct fullwidth spaces.
 
 0.6.0
 --------
 
-- Auto correct FullWidth -> haftwidth for Letters, Numbers, and Colon in time.
+- Auto correct FullWidth -> halfwidth for Letters, Numbers, and Colon in time.
 
 0.4.1
 --------

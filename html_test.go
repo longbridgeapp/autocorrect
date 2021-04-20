@@ -72,7 +72,7 @@ func TestFormatHTMLWithEscapedHTML(t *testing.T) {
 	assertHTMLEqual(t, expected, out)
 }
 
-func TestFormatHTML_haftwidth(t *testing.T) {
+func TestFormatHTML_halfwidth(t *testing.T) {
 	html := `<p>自动转换全角“字符、数字”：我们将在（１６：３２）出发去ＣＢＤ中心。</p>`
 
 	out, err := FormatHTML(html)
