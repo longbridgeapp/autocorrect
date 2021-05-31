@@ -61,8 +61,12 @@ func spaceDashWithHans(in string) (out string) {
 	return out
 }
 
+type Option interface {
+	Format(text string) string
+}
+
 // Format auto format string to add spaces between Chinese and English words.
-func Format(in string) (out string) {
+func Format(in string, options ...Option) (out string) {
 	out = in
 
 	out = halfwidth(out)
@@ -74,6 +78,10 @@ func Format(in string) (out string) {
 
 	out = removeFullDateSpacing(out)
 	out = spaceDashWithHans(out)
+
+	for _, opt := range options {
+		out = opt.Format(out)
+	}
 
 	return
 }

@@ -3,6 +3,8 @@ package autocorrect
 import (
 	"strings"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func assertEqual(t *testing.T, exptected, actual string) {
@@ -59,6 +61,24 @@ func TestFormat(t *testing.T) {
 		"预计全年净亏损；\n预期因出售汽车":                                                                "预计全年净亏损；\n预期因出售汽车",
 	}
 	assertCases(t, cases)
+}
+
+type customFormat struct{}
+
+func (c customFormat) Format(text string) string {
+	return strings.ReplaceAll(text, "AAAA", "BBBB")
+}
+
+func TestFormatWithOptions(t *testing.T) {
+	assert.Equal(t, "测试 options 你好 BBBB", Format("测试options你好AAAA", customFormat{}))
+}
+
+func Test_FormatHTMLWithOptions(t *testing.T) {
+	out, err := FormatHTML("<p>测试options你好AAAA</p>", customFormat{})
+	if err != nil {
+		t.Error(err)
+	}
+	assert.Equal(t, "<p>测试 options 你好 BBBB</p>", out)
 }
 
 func TestFormatForSpecialChars(t *testing.T) {

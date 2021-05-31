@@ -16,13 +16,17 @@ var (
 )
 
 // FormatHTML format HTML content
-func FormatHTML(body string) (out string, err error) {
-	return processHTML(body, Format)
+func FormatHTML(body string, options ...Option) (out string, err error) {
+	return processHTML(body, func(text string) string {
+		return Format(text, options...)
+	})
 }
 
 // UnformatHTML cleanup spaces for HTML
-func UnformatHTML(body string) (out string, err error) {
-	return processHTML(body, Unformat)
+func UnformatHTML(body string, options ...UnformatOption) (out string, err error) {
+	return processHTML(body, func(text string) string {
+		return Unformat(text, options...)
+	})
 }
 
 func processHTML(body string, fn func(plainText string) string) (out string, err error) {
