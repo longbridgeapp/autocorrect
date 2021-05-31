@@ -17,6 +17,7 @@ Automatically add whitespace between CJK (Chinese, Japanese, Korean) and half-wi
 - Fullwidth -> halfwidth (only for [a-zA-Z0-9], and `：` in time).
 - Correct punctuations into Fullwidth near the CJK.
 - Cleanup spacings.
+- Support options for custom format, unformat.
 
 ## Usage
 
@@ -58,6 +59,20 @@ func main() {
   autocorrect.Format("需要符号?自动转换全角字符、数字:我们将在１６：３２分出发去ＣＢＤ中心.")
   # => "需要符号？自动转换全角字符、数字：我们将在 16:32 分出发去 CBD 中心。"
 }
+```
+
+With custom formatter:
+
+```go
+type myFormatter struct {}
+func (my myFormatter) Format(text string) string {
+  return strings.ReplaceAll(text, "ios", "iOS")
+}
+
+autocorrect.Format("新版本ios即将发布", myFormatter{})
+// "新版本 iOS 即将发布"
+autocorrect.FormatHTML("<p>新版本ios即将发布</p>", myFormatter{})
+// "<p>新版本 iOS 即将发布</p>"
 ```
 
 Use `autocorrect.Unformat` to cleanup spacings in plain text.
