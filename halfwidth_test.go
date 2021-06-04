@@ -3,7 +3,7 @@ package autocorrect
 import (
 	"testing"
 
-	"github.com/stretchr/testify/assert"
+	"github.com/longbridgeapp/assert"
 )
 
 func Test_haftwidth(t *testing.T) {
