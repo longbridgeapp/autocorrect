@@ -44,7 +44,7 @@ func main() {
   // => "于 3 月 10 日开始"
 
   autocorrect.Format("包装日期为2013年3月10日")
-  // => "包装日期为2013年3月10日"
+  // => "包装日期为 2013 年 3 月 10 日"
 
   autocorrect.Format("生产环境中使用Go")
   # => "生产环境中使用 Go"
@@ -106,16 +106,16 @@ BenchmarkFormatHTML-12    	    1100	   1097027 ns/op
 ### Format
 
 | Total chars | Duration |
-| ----- | ------- |
-| 50  | 0.06 ms |
-| 100  | 0.11 ms |
-| 400  | 0.42 ms |
+| ----------- | -------- |
+| 50          | 0.06 ms  |
+| 100         | 0.11 ms  |
+| 400         | 0.42 ms  |
 
 ### FormatHTML
 
 | Total chars | Duration |
-| ----- | ------- |
-| 2K  | 1.09 ms |
+| ----------- | -------- |
+| 2K          | 1.09 ms  |
 
 ## License
 
