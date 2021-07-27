@@ -1,3 +1,5 @@
+https://github.com/huacnlee/go-auto-correct/releases
+
 ## 1.0.0
 
 - `Format`, `FormatHTML`, `Unformat`, `UnformatHTML` support custom option for addition processes.

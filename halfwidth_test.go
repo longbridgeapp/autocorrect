@@ -3,13 +3,13 @@ package autocorrect
 import (
 	"testing"
 
-	"github.com/stretchr/testify/assert"
+	"github.com/longbridgeapp/assert"
 )
 
 func Test_halfwidth(t *testing.T) {
 	source := "ａｂｃｄｅｆｇｈｉｊｋｌｍｎｏｐｑｒｓｔｕｖｗｘｙｚＡＢＣＤＥＦＧＨＩＪＫＬＭＮＯＰＱＲＳＴＵＶＷＸＹＺ１２３４５６７８９０"
-	assertEqual(t, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890", halfwidth(source))
-	assertEqual(t, "他说：我们将在16:32分出发去CBD中心。", halfwidth("他说：我们将在１６：３２分出发去ＣＢＤ中心。"))
+	assert.Equal(t, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890", halfwidth(source))
+	assert.Equal(t, "他说：我们将在16:32分出发去CBD中心。", halfwidth("他说：我们将在１６：３２分出发去ＣＢＤ中心。"))
 	// Fullwidth space
 	assert.Equal(t, "ジョイフル－後場売り気配 200 店舗を閉鎖へ 7 月以降、不採算店中心に", halfwidth("ジョイフル－後場売り気配　200　店舗を閉鎖へ　7 月以降、不採算店中心に"))
 	// Fullwidth Numbers

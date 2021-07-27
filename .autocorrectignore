@@ -1,0 +1,3 @@
+*_test.go
+_fixtures/**/*.txt
+README.md

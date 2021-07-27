@@ -2,6 +2,8 @@ package autocorrect
 
 import (
 	"testing"
+
+	"github.com/longbridgeapp/assert"
 )
 
 func Test_fullwidth(t *testing.T) {
@@ -19,6 +21,6 @@ func Test_fullwidth(t *testing.T) {
 
 	for source, exptected := range cases {
 		actual := Format(source)
-		assertEqual(t, exptected, actual)
+		assert.Equal(t, exptected, actual)
 	}
 }

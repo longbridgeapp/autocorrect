@@ -4,19 +4,15 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/stretchr/testify/assert"
+	"github.com/longbridgeapp/assert"
 )
 
-func assertEqual(t *testing.T, exptected, actual string) {
-	if !strings.EqualFold(exptected, actual) {
-		t.Errorf("\nexptected: %s\nactual   : %s", exptected, actual)
-	}
-}
-
 func assertCases(t *testing.T, cases map[string]string) {
+	t.Helper()
+
 	for source, exptected := range cases {
 		actual := Format(source)
-		assertEqual(t, exptected, actual)
+		assert.Equal(t, exptected, actual)
 	}
 }
 
@@ -106,9 +102,9 @@ func TestFormatForDate(t *testing.T) {
 		"于3月10日开始": "于 3 月 10 日开始",
 		"于3月开始":    "于 3 月开始",
 		"于2009年开始": "于 2009 年开始",
-		"正式发布2013年3月10日-Ruby Saturday活动召集": "正式发布2013年3月10日-Ruby Saturday 活动召集",
-		"正式发布2013年3月10号发布":                 "正式发布2013年3月10号发布",
-		"2013年12月22号开始出发":                  "2013年12月22号开始出发",
+		"正式发布2013年3月10日-Ruby Saturday活动召集": "正式发布 2013 年 3 月 10 日-Ruby Saturday 活动召集",
+		"正式发布2013年3月10号发布":                 "正式发布 2013 年 3 月 10 号发布",
+		"2013年12月22号开始出发":                  "2013 年 12 月 22 号开始出发",
 		"12月22号开始出发":                       "12 月 22 号开始出发",
 		"22号开始出发":                          "22 号开始出发",
 	}
@@ -176,5 +172,5 @@ func TestFormat_CJK(t *testing.T) {
 func TestFormatWithhalfwidth(t *testing.T) {
 	text := `自动转换全角“字符、数字”：我们将在（１６：３２）出发去ＣＢＤ中心。`
 	out := Format(text)
-	assertEqual(t, "自动转换全角 “字符、数字”：我们将在（16:32）出发去 CBD 中心。", out)
+	assert.Equal(t, "自动转换全角 “字符、数字”：我们将在（16:32）出发去 CBD 中心。", out)
 }

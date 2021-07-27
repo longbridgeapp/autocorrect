@@ -3,21 +3,10 @@ package autocorrect
 import (
 	"fmt"
 	"io/ioutil"
-	"regexp"
 	"testing"
 
-	"github.com/stretchr/testify/assert"
+	"github.com/longbridgeapp/assert"
 )
-
-var (
-	htmlSpaceRe = regexp.MustCompile(`>[\s]+<`)
-)
-
-func assertHTMLEqual(t *testing.T, exptected, actual string) {
-	if htmlSpaceRe.ReplaceAllString(exptected, "><") != htmlSpaceRe.ReplaceAllString(actual, "><") {
-		t.Errorf("\nexptected:\n%s\nactual   :\n%s", exptected, actual)
-	}
-}
 
 func readFile(filename string) (out string) {
 	data, err := ioutil.ReadFile(fmt.Sprintf("./_fixtures/%s", filename))
@@ -41,7 +30,8 @@ func TestFormatHTMLWithFixtuires(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
-	assertHTMLEqual(t, expected, out)
+	fmt.Println(out)
+	assert.EqualHTML(t, expected, out)
 }
 
 func TestFormatHTMLWithSameTextInAttribute(t *testing.T) {
@@ -51,25 +41,25 @@ func TestFormatHTMLWithSameTextInAttribute(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
-	assertHTMLEqual(t, expected, out)
+	assert.EqualHTML(t, expected, out)
 }
 
 func TestFormatHTMLWithEscapedHTML(t *testing.T) {
 	html := `<p>据2019年12月27日，三生制药获JP Morgan Chase &amp; Co.每股均价9.582港元，增持270.3万股</p>`
-	expected := `<p>据2019年12月27日，三生制药获 JP Morgan Chase &amp; Co.每股均价 9.582 港元，增持 270.3 万股</p>`
+	expected := `<p>据 2019 年 12 月 27 日，三生制药获 JP Morgan Chase &amp; Co.每股均价 9.582 港元，增持 270.3 万股</p>`
 	out, err := FormatHTML(html)
 	if err != nil {
 		t.Error(err)
 	}
-	assertHTMLEqual(t, expected, out)
+	assert.EqualHTML(t, expected, out)
 
 	html = `<p>据2019年12月27日，三生制药获JP Morgan Chase & Co.每股均价9.582港元，增持270.3万股</p>`
-	expected = `<p>据2019年12月27日，三生制药获 JP Morgan Chase & Co.每股均价 9.582 港元，增持 270.3 万股</p>`
+	expected = `<p>据 2019 年 12 月 27 日，三生制药获 JP Morgan Chase & Co.每股均价 9.582 港元，增持 270.3 万股</p>`
 	out, err = FormatHTML(html)
 	if err != nil {
 		t.Error(err)
 	}
-	assertHTMLEqual(t, expected, out)
+	assert.EqualHTML(t, expected, out)
 }
 
 func TestFormatHTML_halfwidth(t *testing.T) {
@@ -80,12 +70,13 @@ func TestFormatHTML_halfwidth(t *testing.T) {
 		t.Error(err)
 	}
 
-	assertEqual(t, "<p>自动转换全角 “字符、数字”：我们将在（16:32）出发去 CBD 中心。</p>", out)
+	assert.Equal(t, "<p>自动转换全角 “字符、数字”：我们将在（16:32）出发去 CBD 中心。</p>", out)
 }
 
 func TestUnformatHTML(t *testing.T) {
 	raw := "<p>Hello world this is english.</p><p><strong>2018 至 2019 财年</strong>，印度电力部门总进口额为 7100 亿卢比（约合 672 亿人民币）其中 2100 亿卢比来自中国</p><p>占比 29.6%，这意味着中国是印度电力设备的国外主要供应商。</p>"
 	out, err := UnformatHTML(raw)
 	assert.NoError(t, err)
-	assertHTMLEqual(t, "<p>Hello world this is english.</p><p><strong>2018至2019财年</strong>，印度电力部门总进口额为7100亿卢比（约合672亿人民币）其中2100亿卢比来自中国</p><p>占比29.6%，这意味着中国是印度电力设备的国外主要供应商。</p>", out)
+	assert.EqualHTML(t, "<p>Hello world this is english.</p><p><strong>2018至2019财年</strong>，印度电力部门总进口额为7100亿卢比（约合672亿人民币）其中2100亿卢比来自中国</p><p>占比29.6%，这意味着中国是印度电力设备的国外主要供应商。</p>", out)
+
 }
