@@ -1,4 +1,4 @@
-https://github.com/huacnlee/go-auto-correct/releases
+https://github.com/longbridgeapp/autocorrect/releases
 
 ## 1.0.0
 

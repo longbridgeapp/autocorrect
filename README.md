@@ -1,14 +1,13 @@
 # AutoCorrrect for Go
 
-[![Go](https://github.com/huacnlee/go-auto-correct/workflows/Go/badge.svg)](https://github.com/huacnlee/go-auto-correct/actions?query=workflow%3AGo)
+[![Go](https://github.com/longbridgeapp/autocorrect/workflows/Go/badge.svg)](https://github.com/longbridgeapp/autocorrect/actions?query=workflow%3AGo)
 
 Automatically add whitespace between CJK (Chinese, Japanese, Korean) and half-width characters (alphabetical letters, numerical digits and symbols).
 
 ## Other implements
 
+- Rust - [autocorrect](https://github.com/huacnlee/autocorrect).
 - Ruby - [auto-correct](https://github.com/huacnlee/auto-correct).
-- Go - [go-auto-correct](https://github.com/huacnlee/go-auto-correct).
-- Rust - [auto-correct.rs](https://github.com/huacnlee/auto-correct.rs).
 
 ## Features
 
@@ -22,7 +21,7 @@ Automatically add whitespace between CJK (Chinese, Japanese, Korean) and half-wi
 ## Usage
 
 ```
-go get github.com/huacnlee/go-auto-correct
+go get github.com/longbridgeapp/autocorrect
 ```
 
 Use `autocorrect.Format` to format plain text.
@@ -32,7 +31,7 @@ https://play.golang.org/p/ntVhrGYnxNk
 ```go
 package main
 
-import "github.com/huacnlee/go-auto-correct"
+import "github.com/longbridgeapp/autocorrect"
 
 func main() {
   autocorrect.Format("长桥LongBridge App下载")
@@ -80,7 +79,7 @@ Use `autocorrect.Unformat` to cleanup spacings in plain text.
 ```go
 package main
 
-import "github.com/huacnlee/go-auto-correct"
+import "github.com/longbridgeapp/autocorrect"
 
 func main() {
   autocorrect.Unformat("据港交所最新权益披露资料显示，2019 年 12 月 27 日，三生制药获 JP Morgan Chase & Co.每股均价 9.582 港元，增持 270.3 万股，总价约 2590 万港元。")
@@ -95,7 +94,7 @@ https://play.golang.org/p/pbETBF4OOcj
 ```go
 package main
 
-import "github.com/huacnlee/go-auto-correct"
+import "github.com/longbridgeapp/autocorrect"
 
 func main() {
   autocorrect.FormatHTML(htmlBody)
@@ -110,7 +109,7 @@ func main() {
 Run `go test -bench=.` to benchmark.
 
 ```
-pkg: github.com/huacnlee/go-auto-correct
+pkg: github.com/longbridgeapp/autocorrect
 BenchmarkFormat50-12      	   19671	     60175 ns/op
 BenchmarkFormat100-12     	   10000	    119076 ns/op
 BenchmarkFormat400-12     	    2847	    424984 ns/op

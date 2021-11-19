@@ -1,4 +1,4 @@
-module github.com/huacnlee/go-auto-correct
+module github.com/longbridgeapp/autocorrect
 
 go 1.13
 
