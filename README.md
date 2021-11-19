@@ -4,6 +4,10 @@
 
 Automatically add whitespace between CJK (Chinese, Japanese, Korean) and half-width characters (alphabetical letters, numerical digits and symbols).
 
+Go 版本的 [AutoCorrect](https://github.com/huacnlee/autocorrect) 实现，用于帮助开发者在 Go 的项目中使用自动纠正（提交内容或返回数据格式化）中英文之间空格，错误使用半角标点符号等问题，以确保产品能有统一的输出文案。
+
+> 可配套采用 Rust 开发的 [AutoCorrect](https://github.com/huacnlee/autocorrect) 的 Lint、VS Code 以及 CI 检查流程等功能，来改进 I18n、项目文案、注释等细节。
+
 ## Other implements
 
 - Rust - [autocorrect](https://github.com/huacnlee/autocorrect).
