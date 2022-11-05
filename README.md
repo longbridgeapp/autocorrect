@@ -93,7 +93,7 @@ func main() {
 
 Use `autocorrect.FormatHTML` / `autocorrect.UnformatHTML` for HTML contents.
 
-https://play.golang.org/p/pbETBF4OOcj
+https://go.dev/play/p/qS6NuPcYjSa
 
 ```go
 package main
