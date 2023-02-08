@@ -7,6 +7,7 @@ import (
 	"strings"
 
 	"github.com/pkg/errors"
+	"github.com/tdewolff/parse/v2"
 	"github.com/tdewolff/parse/v2/html"
 	// "golang.org/x/net/html"
 )
@@ -31,8 +32,9 @@ func UnformatHTML(body string, options ...UnformatOption) (out string, err error
 
 func processHTML(body string, fn func(plainText string) string) (out string, err error) {
 	w := &bytes.Buffer{}
-	lex := html.NewLexer(strings.NewReader(body))
-	defer lex.Restore()
+	i := parse.NewInput(strings.NewReader(body))
+	lex := html.NewLexer(i)
+
 	out = body
 
 	ignoreTag := false
@@ -46,7 +48,7 @@ func processHTML(body string, fn func(plainText string) string) (out string, err
 				return w.String(), nil
 			}
 
-			err = errors.Errorf("Error on line %d, %v", lex.Offset(), lex.Err())
+			err = errors.Errorf("Error on line %d, %v", i.Offset(), lex.Err())
 			return
 		case html.TextToken:
 			if ignoreTag {
