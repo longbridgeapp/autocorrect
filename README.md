@@ -114,11 +114,12 @@ Run `go test -bench=.` to benchmark.
 
 ```
 pkg: github.com/longbridgeapp/autocorrect
-BenchmarkFormat50-12      	   19671	     60175 ns/op
-BenchmarkFormat100-12     	   10000	    119076 ns/op
-BenchmarkFormat400-12     	    2847	    424984 ns/op
-Benchmark_halfwidth-12    	  289411	      4150 ns/op
-BenchmarkFormatHTML-12    	    1100	   1097027 ns/op
+BenchmarkFormat50-8           	   28234	     40439 ns/op
+BenchmarkFormat100-8          	   15157	     79213 ns/op
+BenchmarkFormat400-8          	    4172	    287352 ns/op
+Benchmark_halfwidth-8         	  526154	      2248 ns/op
+BenchmarkFormatHTML-8         	    1663	    713339 ns/op
+BenchmarkFormatHTML_large-8   	      18	  64326771 ns/op
 ```
 
 ### Format
@@ -134,6 +135,7 @@ BenchmarkFormatHTML-12    	    1100	   1097027 ns/op
 | Total chars | Duration |
 | ----------- | -------- |
 | 2K          | 1.09 ms  |
+| 400K        | 63.36 ms |
 
 ## License
 

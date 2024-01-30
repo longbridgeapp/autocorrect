@@ -80,3 +80,12 @@ func TestUnformatHTML(t *testing.T) {
 	assert.EqualHTML(t, "<p>Hello world this is english.</p><p><strong>2018至2019财年</strong>，印度电力部门总进口额为7100亿卢比（约合672亿人民币）其中2100亿卢比来自中国</p><p>占比29.6%，这意味着中国是印度电力设备的国外主要供应商。</p>", out)
 
 }
+
+func BenchmarkFormatHTML_large(b *testing.B) {
+	raw := readFile("large.html")
+
+	for i := 0; i < b.N; i++ {
+		// about 1.07ms/op
+		FormatHTML(raw)
+	}
+}
