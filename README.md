@@ -135,7 +135,7 @@ BenchmarkFormatHTML_large-8   	      18	  64326771 ns/op
 | Total chars | Duration |
 | ----------- | -------- |
 | 2K          | 1.09 ms  |
-| 400K        | 63.36 ms |
+| 300K        | 63.36 ms |
 
 ## License
 
